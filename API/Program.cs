@@ -1,25 +1,59 @@
+using Microsoft.EntityFrameworkCore;
+using API.Authorization;
+using API.Helpers;
+using API.Services;
+using API.Interfaces;
+using API.Context;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// add services to DI container
+{
+    var services = builder.Services;
+    var env = builder.Environment;
+ 
+    // use sql server db in production and sqlite db in development
+   
+        services.AddDbContext<DataContext>(); 
+    
+    services.AddCors();
+    services.AddControllers();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    // configure automapper with all automapper profiles from this assembly
+    services.AddAutoMapper(typeof(Program));
+
+    // configure strongly typed settings object
+    services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
+    // configure DI for application services
+    services.AddScoped<IJwtUtils, JwtUtils>();
+    services.AddScoped<IUserService, UserService>();
+}
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+/*
+// migrate any database changes on startup (includes initial db creation)
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();    
+    dataContext.Database.Migrate();
+}*/
+
+// configure HTTP request pipeline
+{
+    // global cors policy
+    app.UseCors(x => x
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+
+    // global error handler
+    app.UseMiddleware<ErrorHandlerMiddleware>();
+
+    // custom jwt auth middleware
+    app.UseMiddleware<JwtMiddleware>();
+
+    app.MapControllers();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+app.Run("http://localhost:4000");

@@ -1,5 +1,5 @@
 namespace API.Interfaces;
-
+using API.Entities;
 
 public interface IJwtUtils
 {

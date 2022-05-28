@@ -1,7 +1,6 @@
 namespace API.Authorization;
 
-using API.Services;
-
+using API.Interfaces;
 public class JwtMiddleware
 {
     private readonly RequestDelegate _next;
