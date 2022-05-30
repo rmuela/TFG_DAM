@@ -1,22 +1,38 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { Error404ComponentComponent } from './components/error404-component/error404-component.component';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './pages/account/login/login.component';
+import { HomeComponentComponent } from './pages/home/home-component/home-component.component';
+import { Error404ComponentComponent } from './components/error404/error404/error404-component.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { AlertComponent } from './components/alert/alert-component/alert-component.component';
+import { RegisterComponent } from './pages/account/register-component/register-component.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [
+  declarations: [   
     AppComponent,
     Error404ComponentComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    HomeComponentComponent,
+    AlertComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
