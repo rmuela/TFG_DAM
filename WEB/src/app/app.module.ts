@@ -12,6 +12,9 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { AlertComponent } from './components/alert/alert-component/alert-component.component';
 import { RegisterComponent } from './pages/account/register-component/register-component.component';
 import { CommonModule } from '@angular/common';
+import { FooterComponentComponent } from './components/footer/footer-component/footer-component.component';
+import { NavComponentComponent } from './components/nav/nav-component/nav-component.component';
+import { HeaderComponentComponent } from './components/header/header-component/header-component.component';
 
 @NgModule({
   declarations: [   
@@ -20,7 +23,10 @@ import { CommonModule } from '@angular/common';
     LoginComponent,
     RegisterComponent,
     HomeComponentComponent,
-    AlertComponent
+    AlertComponent,
+    FooterComponentComponent,
+    NavComponentComponent,
+    HeaderComponentComponent
   ],
   imports: [
     CommonModule,
