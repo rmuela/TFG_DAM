@@ -3,11 +3,11 @@ namespace API.Context;
 using Microsoft.EntityFrameworkCore;
 using API.Entities;
 
-public class DataContext : DbContext
+public class WeddingContext : DbContext
 {
     protected readonly IConfiguration Configuration;
 
-    public DataContext(IConfiguration configuration)
+    public WeddingContext(IConfiguration configuration)
     {
         Configuration = configuration;
     }

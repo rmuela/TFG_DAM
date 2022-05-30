@@ -12,11 +12,11 @@ namespace API.Services
 {
     public class UserService : IUserService
     {
-        private DataContext _context;
+        private WeddingContext _context;
         private IJwtUtils _jwtUtils;
         private readonly IMapper _mapper;
 
-        public UserService(DataContext context, IJwtUtils jwtUtils,IMapper mapper)
+        public UserService(WeddingContext context, IJwtUtils jwtUtils,IMapper mapper)
         {
             _context = context;
             _jwtUtils = jwtUtils;

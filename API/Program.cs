@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
  
     // use sql server db in production and sqlite db in development
    
-        services.AddDbContext<DataContext>(); 
+        services.AddDbContext<WeddingContext>(); 
     
     services.AddCors();
     services.AddControllers();
