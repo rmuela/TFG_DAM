@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Error404ComponentComponent } from './components/error404/error404/error404-component.component';
+import { PinCodeComponentComponent } from './components/pinCode/pin-code-component/pin-code-component.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { LoginComponent } from './pages/account/login/login.component';
 import { RegisterComponent } from './pages/account/register-component/register-component.component';
+import { CreateWeddingComponentComponent } from './pages/create-wedding/create-wedding-component/create-wedding-component.component';
 import { HomeComponentComponent } from './pages/home/home-component/home-component.component';
 
 
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponentComponent, canActivate: [AuthGuard],
+  },
+  {
+    path: 'home/create-wedding',
+    component: CreateWeddingComponentComponent, canActivate: [AuthGuard],
+  },
+  {
+    path: 'home/verify-pinCode',
+    component: PinCodeComponentComponent, canActivate: [AuthGuard],
   },
   {
     path: '**',

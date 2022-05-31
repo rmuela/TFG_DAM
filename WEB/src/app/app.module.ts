@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { FooterComponentComponent } from './components/footer/footer-component/footer-component.component';
 import { NavComponentComponent } from './components/nav/nav-component/nav-component.component';
 import { HeaderComponentComponent } from './components/header/header-component/header-component.component';
+import { CreateWeddingComponentComponent } from './pages/create-wedding/create-wedding-component/create-wedding-component.component';
+import { PinCodeComponentComponent } from './components/pinCode/pin-code-component/pin-code-component.component';
 
 @NgModule({
   declarations: [   
@@ -26,7 +28,9 @@ import { HeaderComponentComponent } from './components/header/header-component/h
     AlertComponent,
     FooterComponentComponent,
     NavComponentComponent,
-    HeaderComponentComponent
+    HeaderComponentComponent,
+    CreateWeddingComponentComponent,
+    PinCodeComponentComponent
   ],
   imports: [
     CommonModule,
