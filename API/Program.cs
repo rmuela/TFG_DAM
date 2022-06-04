@@ -4,29 +4,40 @@ using API.Helpers;
 using API.Services;
 using API.Interfaces;
 using API.Context;
+using AutoMapper;
+using API.Mapper;
 var builder = WebApplication.CreateBuilder(args);
 
-// add services to DI container
+
 {
     var services = builder.Services;
     var env = builder.Environment;
  
-    // use sql server db in production and sqlite db in development
    
-        //services.AddDbContext<WeddingContext>(); 
-        services.AddTransient<WeddingContext, WeddingContext>();
+   
+        
+    services.AddTransient<WeddingContext, WeddingContext>();
     services.AddCors();
     services.AddControllers();
 
     // configure automapper with all automapper profiles from this assembly
     services.AddAutoMapper(typeof(Program));
+    /*var mapperConfig = new  MapperConfiguration(mc =>
 
+        {
+            mc.AddProfile(new AutoMapperProfile());
+            mc.AddProfile(new InvitationProfile());
+
+        });
+    IMapper mapper = mapperConfig.CreateMapper();
+        services.AddSingleton(mapper);*/
     // configure strongly typed settings object
     services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
     // configure DI for application services
     services.AddScoped<IJwtUtils, JwtUtils>();
     services.AddScoped<IUserService, UserService>();
+    services.AddScoped<IInvitationService, InvitationService>();
 }
 
 var app = builder.Build();

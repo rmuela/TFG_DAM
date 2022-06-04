@@ -14,6 +14,10 @@ public class AutoMapperProfile : Profile
         // RegisterRequest -> User
         CreateMap<RegisterRequest, User>();
 
+        CreateMap<InvitationDTO, Invitation>();
+        CreateMap<Invitation, InvitationDTO>();
+        CreateMap<BaseInvitationDTO, Invitation>();
+        CreateMap<Invitation, BaseInvitationDTO>();
         /*
         // UpdateRequest -> User
         CreateMap<UpdateRequest, User>()

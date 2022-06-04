@@ -20,4 +20,5 @@ public class WeddingContext : DbContext
 
     
     public DbSet<User> Users { get; set; }
+    public DbSet<Invitation> Invitations { get; set; }
 }
