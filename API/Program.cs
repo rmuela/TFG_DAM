@@ -12,10 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 {
     var services = builder.Services;
     var env = builder.Environment;
- 
-   
-   
-        
+
+
+
+
     services.AddTransient<WeddingContext, WeddingContext>();
     services.AddCors();
     services.AddControllers();
@@ -38,6 +38,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddScoped<IJwtUtils, JwtUtils>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IInvitationService, InvitationService>();
+    services.AddScoped<IProvinceService, ProvinceService>();
 }
 
 var app = builder.Build();

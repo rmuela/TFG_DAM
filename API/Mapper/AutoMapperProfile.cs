@@ -3,6 +3,8 @@ namespace API.Mapper;
 using AutoMapper;
 using API.Entities;
 using API.Models.Users;
+using API.Models.Provinces;
+using Microsoft.EntityFrameworkCore;
 
 public class AutoMapperProfile : Profile
 {
@@ -18,6 +20,10 @@ public class AutoMapperProfile : Profile
         CreateMap<Invitation, InvitationDTO>();
         CreateMap<BaseInvitationDTO, Invitation>();
         CreateMap<Invitation, BaseInvitationDTO>();
+        /*CreateMap<Province, ProvinceDTO>();
+        CreateMap<ProvinceDTO, Province>();
+        CreateMap<ProvinceDTO, DbSet<User>>();
+        CreateMap<ProvinceDTO, DbSet<User>>();*/
         /*
         // UpdateRequest -> User
         CreateMap<UpdateRequest, User>()
