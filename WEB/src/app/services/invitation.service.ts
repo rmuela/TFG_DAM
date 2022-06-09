@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -6,41 +6,39 @@ import { map } from 'rxjs/operators';
 
 import { User } from '../models';
 import { environment } from 'src/environments/environment.prod';
+import { Invitation } from '../models/invitation';
 
 
 @Injectable({ providedIn: 'root' })
-export class AccountService {
-    private userSubject: BehaviorSubject<User> ; 
-    public user: Observable<User>;
+export class InvitationService {
+    private invitationSubject: BehaviorSubject<Invitation> ; 
+    public invitation: Observable<Invitation>;
 
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || "[]"));
-        this.user = this.userSubject.asObservable();
+        this.invitationSubject = new BehaviorSubject<Invitation>(JSON.parse(localStorage.getItem('user') || "[]"));
+        this.invitation = this.invitationSubject.asObservable();
     }
 
-    public get userValue(): User {
-        return this.userSubject.value;
+    public get userValue(): Invitation {
+        return this.invitationSubject.value;
     }
-
+    /*
     login(username: any, password: any) {
-        return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
-            .pipe(map(user => {
+        return this.http.post<invitation>(`${environment.apiUrl}/users/authenticate`, { username, password })
+            .pipe(map(invitation => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                return user;
+                this.invitationSubject.next(invitation);
+                return invitation;
             }));
     }
-
-    logout() {
-        // remove user from local storage and set current user to null
-        localStorage.removeItem('user');
-        this.userSubject.next(<User>{});
-        this.router.navigate(['']);
-    }
+*/
+   createWedding(invitation: Invitation) {
+        return this.http.post(`${environment.apiUrl}/invitation`, invitation);
+   }
 
     register(user: User) {
         return this.http.post(`${environment.apiUrl}/users/register`, user);
@@ -55,7 +53,7 @@ export class AccountService {
     }
 
     
-
+    /*
     delete(id: string) {
         return this.http.delete(`${environment.apiUrl}/users/${id}`)
             .pipe(map(x => {
@@ -65,5 +63,5 @@ export class AccountService {
                 }
                 return x;
             }));
-    }
+    }*/
 }

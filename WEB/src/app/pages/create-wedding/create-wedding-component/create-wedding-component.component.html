@@ -1,48 +1,178 @@
+<!doctype html>
+<html lang="en">
 
-<div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="modal-body">
-            <!-- Product details-->        
-            <div class="d-flex " > 
-              <img class="d-flex justify-content-start" src="/assets/img/iconos/arrow-left.svg" />
-              <h2 class=" p-2 text-uppercase d-flex justify-content-center"> </h2>
-    
-            </div>      
-            <img class="img-fluid d-block mx-auto" src="" alt="..." />
-            <div class="d-flex justify-content-center">
-              <ul class="list-inline">
-                <li>
-                  <strong>Precio:</strong>
-                  
-                </li>
-                
-                <li>
-                  <strong>Puja inicial:
-                    
-                  </strong>
-                </li>
-              </ul>
-              
-            </div>
-            <div class="form-group">
-              <form >
-                <label for="bid-user"> Name: </label>
-                  
-                <input type="number" class="form-control" id="bid-user" formControlName="bidUser">
-                <input id="id-product" name="id-product" type="hidden"  formControlName="idProduct" value="">
-                <button class="btn-change btn-warning  btn-lg text-uppercase "  type="submit"  > 
-                  Haz tu oferta
-                
-                </button>
-              </form>
-            </div>
-             
-             
+<head>
+  <title>Login 10</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="img js-fullheight">
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-5">
+          <h2 class="heading-section">CREATE WEDDING</h2>
         </div>
-            
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <div class="login-wrap p-0">
+
+            <form [formGroup]="createWeddingForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="nameCouple">Nombre de los novios:</label>
+                <input type="text" formControlName="nameCouple" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['nameCouple'].errors }" />
+                <div *ngIf="submitted && createWeddingForm.controls['nameCouple'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['nameCouple'].errors?.['required']">First Name is
+                    required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="weddingDate">Wedding Date:</label>
+                <input type="date" formControlName="weddingDate" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['weddingDate'].errors }" />
+                <div *ngIf="submitted && createWeddingForm.controls['weddingDate'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['weddingDate'].errors?.['required']">Wedding Date is
+                    required</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="placeConvite">Place Convite</label>
+                <input type="text" formControlName="placeConvite" class="form-control" placeholder="Bar Antonio"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['placeConvite'].errors }" />
+                <div *ngIf="submitted && createWeddingForm.controls['placeConvite'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['placeConvite'].errors?.['required']">Place Convite is
+                    required</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="adressConvite">Adress Convite</label>
+                <input type="text" formControlName="adressConvite" class="form-control"
+                  placeholder="C/ molinos Nº11 "
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['adressConvite'].errors }" />
+                <div *ngIf="submitted && createWeddingForm.controls['adressConvite'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['adressConvite'].errors?.['required']">Adress Convite is
+                    required</div>
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" formControlName="city" class="form-control" placeholder="Valencia"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['city'].errors }" />
+
+                <div *ngIf="submitted && createWeddingForm.controls['city'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['city'].errors?.['required']">city is
+                    required</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="hourDinnerConvite">Hour Dinner Convite</label>
+                <input type="text" formControlName="hourDinnerConvite" class="form-control" placeholder="19:00"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['hourDinnerConvite'].errors }" />
+
+                <div *ngIf="submitted && createWeddingForm.controls['hourDinnerConvite'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['hourDinnerConvite'].errors?.['required']">Hour Dinner Convite is
+                    required</div>
+                  <div *ngIf="createWeddingForm.controls['hourDinnerConvite'].errors?.['minlength']">Hour Dinner Convite must
+                    be at least 6
+                    characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="transportConvite">Transport Convite</label>
+                <input type="text" formControlName="transportConvite" class="form-control" placeholder="ninguno"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['transportConvite'].errors }" />
+
+                <div *ngIf="submitted && createWeddingForm.controls['transportConvite'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['transportConvite'].errors?.['required']">Transport Convite is
+                    required</div>
+                  <div *ngIf="createWeddingForm.controls['transportConvite'].errors?.['minlength']">Transport Convite must
+                    be at least 6
+                    characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="hourTransportConvite">Hour Transport Convite</label>
+                <input type="text" formControlName="hourTransportConvite" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['hourTransportConvite'].errors }" />
+
+                <div *ngIf="submitted && createWeddingForm.controls['hourTransportConvite'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['hourTransportConvite'].errors?.['required']">Hour Transport Convite
+                    is
+                    required</div>
+                  <div *ngIf="createWeddingForm.controls['hourTransportConvite'].errors?.['minlength']">Hour Transport
+                    Convite must
+                    be at least 6
+                    characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="boyPhone">Boy Phone</label>
+                <input type="text" formControlName="boyPhone" class="form-control" placeholder="975345678"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['boyPhone'].errors }" />
+
+                <div *ngIf="submitted && createWeddingForm.controls['boyPhone'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['boyPhone'].errors?.['required']">Boy Phone is
+                    required</div>
+                  <div *ngIf="createWeddingForm.controls['boyPhone'].errors?.['minlength']">Boy Phone must
+                    be at least 6
+                    characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="girlPhone">Girl Phone</label>
+                <input type="text" formControlName="girlPhone" class="form-control" placeholder="975345678"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['girlPhone'].errors }" />
+
+                <div *ngIf="submitted && createWeddingForm.controls['girlPhone'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['girlPhone'].errors?.['required']">Girl Phone is
+                    required</div>
+                  <div *ngIf="createWeddingForm.controls['girlPhone'].errors?.['minlength']">Girl Phone must
+                    be at least 9
+                    characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="pinCode">Pin Code</label>
+                <input type="text" formControlName="pinCode" class="form-control" placeholder="2345"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['password'].errors }" />
+
+                <div *ngIf="submitted && createWeddingForm.controls['pinCode'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['pinCode'].errors?.['required']">Password is
+                    required</div>
+                  <div *ngIf="createWeddingForm.controls['pinCode'].errors?.['minlength']">Password must
+                    be at least 6
+                    characters</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                  Sign in
+                </button>
+                <a routerLink="../" class="btn btn-link">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  
-    
+  </section>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
