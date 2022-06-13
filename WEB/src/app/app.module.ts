@@ -17,6 +17,7 @@ import { NavComponentComponent } from './components/nav/nav-component/nav-compon
 import { HeaderComponentComponent } from './components/header/header-component/header-component.component';
 import { CreateWeddingComponentComponent } from './pages/create-wedding/create-wedding-component/create-wedding-component.component';
 import { PinCodeComponentComponent } from './components/pinCode/pin-code-component/pin-code-component.component';
+import { ShowWeddingComponentComponent } from './pages/show-weddings/show-wedding-component/show-wedding-component.component';
 
 @NgModule({
   declarations: [   
@@ -30,7 +31,8 @@ import { PinCodeComponentComponent } from './components/pinCode/pin-code-compone
     NavComponentComponent,
     HeaderComponentComponent,
     CreateWeddingComponentComponent,
-    PinCodeComponentComponent
+    PinCodeComponentComponent,
+    ShowWeddingComponentComponent
   ],
   imports: [
     CommonModule,

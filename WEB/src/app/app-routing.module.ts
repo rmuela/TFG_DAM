@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/account/login/login.component';
 import { RegisterComponent } from './pages/account/register-component/register-component.component';
 import { CreateWeddingComponentComponent } from './pages/create-wedding/create-wedding-component/create-wedding-component.component';
 import { HomeComponentComponent } from './pages/home/home-component/home-component.component';
+import { ShowWeddingComponentComponent } from './pages/show-weddings/show-wedding-component/show-wedding-component.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'home/verify-pinCode',
     component: PinCodeComponentComponent, canActivate: [AuthGuard],
+  },
+  {
+    path: 'home/show-weddings',
+    component: ShowWeddingComponentComponent, canActivate: [AuthGuard],
   },
   {
     path: '**',

@@ -44,8 +44,8 @@ export class InvitationService {
         return this.http.post(`${environment.apiUrl}/users/register`, user);
     }
 
-    getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/users`);
+    getAllInvitations():Observable<Invitation[]> {
+        return this.http.get<Invitation[]>(`${environment.apiUrl}/invitation`);
     }
 
     getById(id: string) {
