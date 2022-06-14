@@ -5,6 +5,8 @@ using API.Entities;
 using API.Models.Users;
 using API.Models.Provinces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using System;
 
 public class AutoMapperProfile : Profile
 {
@@ -20,6 +22,9 @@ public class AutoMapperProfile : Profile
         CreateMap<Invitation, InvitationDTO>();
         CreateMap<BaseInvitationDTO, Invitation>();
         CreateMap<Invitation, BaseInvitationDTO>();
+        CreateMap<Invitation, InvitationEditDTO>();
+        CreateMap<InvitationEditDTO, Invitation>();
+        CreateMap<EntityQueryable<int>, Int32>();
         /*CreateMap<Province, ProvinceDTO>();
         CreateMap<ProvinceDTO, Province>();
         CreateMap<ProvinceDTO, DbSet<User>>();

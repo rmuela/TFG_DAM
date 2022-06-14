@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using API.Authorization;
 using API.Helpers;
 using API.Models.Users;
-
+using API.Entities;
 using API.Interfaces;
 
 [ApiController]
@@ -75,15 +75,15 @@ public class InvitationController : ControllerBase
 
     [HttpPut("{Id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(InvitationDTO))]
-    public ActionResult<InvitationDTO> Put([FromBody] BaseInvitationDTO baseInvitationDTO, int Id)
+    public ActionResult<InvitationDTO> Put([FromBody] InvitationEditDTO invitationEditDTO, int Id)
     {
 
-        return Ok(_invitationService.Modify(baseInvitationDTO, Id));
+        return Ok(_invitationService.Modify(invitationEditDTO, Id));
     }
     [HttpPost("pinCode")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(InvitationDTO))]
     
-    public InvitationDTO GetPinCode( PinCodeModel pinCodeModel)
+    public int GetPinCode( PinCodeModel pinCodeModel)
     {
        return _invitationService.SearchPinCode(pinCodeModel.pinCode,pinCodeModel.IdWedding);
     }

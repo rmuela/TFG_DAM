@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 {
     var services = builder.Services;
     var env = builder.Environment;
-
+    
 
 
 
@@ -33,6 +33,7 @@ var builder = WebApplication.CreateBuilder(args);
         services.AddSingleton(mapper);*/
     // configure strongly typed settings object
     services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+    
 
     // configure DI for application services
     services.AddScoped<IJwtUtils, JwtUtils>();

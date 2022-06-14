@@ -30,8 +30,15 @@ namespace API.Services
 
         public InvitationDTO GetById(int guid)
         {
+            
+            int idProvincia = _context.Invitations.Where(x => x.Id == guid).Select(x => x.city).Select(x => x.IdProvince).FirstOrDefault();
+            
+           
             InvitationDTO invitationUser =  _mapper.Map<InvitationDTO>(_context.Invitations.FirstOrDefault(x => x.Id == guid));               
             if (invitationUser == null) throw new KeyNotFoundException("Invitation not found");
+            
+            invitationUser.cityIdProvince = idProvincia;
+            
             return invitationUser;
         }
 
@@ -62,15 +69,15 @@ namespace API.Services
             _context.SaveChanges();
         }
 
-        public InvitationDTO Modify(BaseInvitationDTO invitationDTO, int guid)
+        public InvitationDTO Modify(InvitationEditDTO invitationEditDTO, int guid)
         {
-            var _mappedItem = _mapper.Map<Invitation>(invitationDTO);
+            var _mappedItem = _mapper.Map<Invitation>(invitationEditDTO);
             _mappedItem.Id = guid;
 
             Invitation modifiedItem = _context.Invitations.FirstOrDefault(x => x.Id == guid);
-
-            if (modifiedItem == null || !BCrypt.Net.BCrypt.Verify(invitationDTO.pinCode, modifiedItem.pinCode))
-                throw new AppException("PinCode  is incorrect");            
+            _mappedItem.pinCode = modifiedItem.pinCode;         
+            
+            
 
             _context.Entry(modifiedItem).CurrentValues.SetValues(_mappedItem);
 
@@ -79,14 +86,14 @@ namespace API.Services
             return _mapper.Map<InvitationDTO>(_mappedItem);
         }
        
-        public InvitationDTO SearchPinCode(string Pincode,int Id)
+        public int SearchPinCode(string Pincode,int Id)
         {
             InvitationDTO invitationDTO = GetById(Id);
             
            if (!BCrypt.Net.BCrypt.Verify( Pincode, invitationDTO.pinCode))
                 throw new AppException("PinCode  is incorrect"); 
             
-            return invitationDTO;
+            return invitationDTO.Id;
         }
 
     }

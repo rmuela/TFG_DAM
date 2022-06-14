@@ -10,6 +10,6 @@ public interface IInvitationService
 
     public void Delete(int guid);
 
-    public InvitationDTO Modify(BaseInvitationDTO invitationDTO, int guid);
-    public InvitationDTO SearchPinCode(string pinCode,int id);
+    public InvitationDTO Modify(InvitationEditDTO invitationEditDTO, int guid);
+    public int SearchPinCode(string pinCode,int id);
 }
