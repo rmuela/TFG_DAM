@@ -24,10 +24,10 @@
             <form [formGroup]="createWeddingForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
                 <label for="nameCouple">Nombre de los novios:</label>
-                <input type="text" formControlName="nameCouple" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['nameCouple'].errors }" />
-                <div *ngIf="submitted && createWeddingForm.controls['nameCouple'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['nameCouple'].errors?.['required']">First Name is
+                <input type="text" formControlName="coupleName" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['coupleName'].errors }" />
+                <div *ngIf="submitted && createWeddingForm.controls['coupleName'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['coupleName'].errors?.['required']">First Name is
                     required
                   </div>
                 </div>
@@ -66,13 +66,13 @@
 
               <div class="form-group">
                 <label for="city">City</label>
-                <input list="name-provinces" formControlName="city" class="form-control" placeholder="Valencia"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['city'].errors }" />
+                <input list="name-provinces" formControlName="cityIdProvince" class="form-control" placeholder="Valencia"
+                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['cityIdProvince'].errors }" />
                 <datalist id="name-provinces">
                   <option *ngFor="let province of provinces" [value]="province.provinceName">{{province.provinceName}}</option>                  
                 </datalist>
-                <div *ngIf="submitted && createWeddingForm.controls['city'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['city'].errors?.['required']">city is
+                <div *ngIf="submitted && createWeddingForm.controls['cityIdProvince'].errors" class="invalid-feedback">
+                  <div *ngIf="createWeddingForm.controls['cityIdProvince'].errors?.['required']">city is
                     required</div>
                 </div>
               </div>

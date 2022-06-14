@@ -6,6 +6,7 @@ import { InvitationService } from 'src/app/services/invitation.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { Province } from 'src/app/models/province';
 import { ProvinceService } from 'src/app/services/province.service';
+import { User } from 'src/app/models';
 
 
 @Component({
@@ -35,17 +36,18 @@ createWeddingForm!: FormGroup;
         this.provinces = items
         );
       this.createWeddingForm = this.formBuilder.group({
-        nameCouple: ['', Validators.required],
+        coupleName: ['', Validators.required],
         weddingDate: ['', Validators.required],
         placeConvite: ['', Validators.required],
         adressConvite: ['', [Validators.required, Validators.maxLength(9)],Validators.minLength(9)],
-        city: ['', Validators.required],
+        cityIdProvince: ['', Validators.required],
         hourDinnerConvite: ['', Validators.required],
         transportConvite: ['', Validators.required],
         hourTransportConvite: ['', Validators.required],
         boyPhone: ['', Validators.required],
         girlPhone: ['', Validators.required],
         pinCode: ['', Validators.required],
+        usuarioId: [''],
       });
       
   }
@@ -54,9 +56,12 @@ createWeddingForm!: FormGroup;
   get f() { return this.createWeddingForm.controls; }
 
   onSubmit() {
-    const nameCityUser: String = this.createWeddingForm.controls['city'].value;
+    const nameCityUser: String = this.createWeddingForm.controls['cityIdProvince'].value;
     var idCity = this.provinces?.find(x => x.provinceName == nameCityUser);
-      this.submitted = true;
+    this.createWeddingForm.controls['cityIdProvince'].setValue(idCity?.idProvince);
+     var usuarioLogeado:User = JSON.parse(localStorage['user']);
+     this.createWeddingForm.controls['usuarioId'].setValue(usuarioLogeado.id);
+    this.submitted = true;
 
       // reset alerts on submit
       this.alertService.clear();
@@ -78,7 +83,9 @@ createWeddingForm!: FormGroup;
                   this.alertService.error(error);
                   this.loading = false;
               }
+              
           });
+          
   }
   hideShowPassword() {
     if(this.inputType == "password") {

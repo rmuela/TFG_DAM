@@ -37,11 +37,14 @@ namespace API.Services
 
         public InvitationDTO Add(BaseInvitationDTO baseInvitationDTO)
         {
+            User idUser = _context.Users.FirstOrDefault(x => x.Id == baseInvitationDTO.usuarioId);
+            Province idProvince = _context.provinces.FirstOrDefault(x => x.IdProvince == baseInvitationDTO.cityIdProvince);
             var _mappedItem = _mapper.Map<Invitation>(baseInvitationDTO);
             // hash pinCode
             _mappedItem.pinCode = BCrypt.Net.BCrypt.HashPassword(baseInvitationDTO.pinCode);
-            
-            
+            _mappedItem.usuario = idUser;
+            _mappedItem.city = idProvince;
+           
             _context.Invitations.Add(_mappedItem);
             _context.SaveChanges();
             return _mapper.Map<InvitationDTO>(_mappedItem);

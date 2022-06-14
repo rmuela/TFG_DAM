@@ -1,8 +1,10 @@
 export class Invitation {
+    coupleName!: string
     weddingDate!: Date;
     placeConvite!: string ;
     adressConvite!: string ;
-    city!: string ;
+    cityIdProvince!: number ;
+    usuarioId!: number ;
     hourDinnerConvite!: string ;
     transportConvite!: string ;
     hourTransportConvite!: string ;

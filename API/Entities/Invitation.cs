@@ -9,7 +9,7 @@ public class Invitation
     public int idUsuario { get; set; }
     public User usuario { get; set; }
 
-    public int coupleName { get; set; }
+    public string coupleName { get; set; }
     public DateTime weddingDate { get; set; }
     public string placeConvite { get; set; }
     public string adressConvite { get; set; }
