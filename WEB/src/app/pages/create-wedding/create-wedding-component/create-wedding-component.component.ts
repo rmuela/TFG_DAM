@@ -21,7 +21,8 @@ export class CreateWeddingComponentComponent implements OnInit {
   loading = false;
   submitted = false;
   inputType = 'password';
- 
+  telPattern = "[0-9]{3}[ -][0-9]{3}[ -][0-9]{3}";
+  pinCodePattern="[0-9]{4}"
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -46,7 +47,7 @@ export class CreateWeddingComponentComponent implements OnInit {
       hourDinnerConvite: ['', Validators.required],
       transportConvite: ['', ],
       hourTransportConvite: ['', ],
-      boyPhone: ['', Validators.required],
+      boyPhone: ['', Validators.required,],
       girlPhone: ['', Validators.required],
       pinCode: ['', Validators.required],
       usuarioId: [''],
@@ -70,7 +71,7 @@ export class CreateWeddingComponentComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.createWeddingForm.invalid) {
-      this.alertService.error("Formulario no valido-");
+      window.alert("Formulario no valido")
       return;
     }
 

@@ -19,6 +19,7 @@ import { CreateWeddingComponentComponent } from './pages/create-wedding/create-w
 import { PinCodeComponentComponent } from './components/pinCode/pin-code-component/pin-code-component.component';
 import { ShowWeddingComponentComponent } from './pages/show-weddings/show-wedding-component/show-wedding-component.component';
 import { EditWeddingComponent } from './pages/edit-wedding/edit-wedding/edit-wedding.component';
+import { ShowInvitationsComponent } from './pages/show-invitations/show-invitations/show-invitations.component';
 
 @NgModule({
   declarations: [   
@@ -34,7 +35,8 @@ import { EditWeddingComponent } from './pages/edit-wedding/edit-wedding/edit-wed
     CreateWeddingComponentComponent,
     PinCodeComponentComponent,
     ShowWeddingComponentComponent,
-    EditWeddingComponent    
+    EditWeddingComponent,
+    ShowInvitationsComponent    
     
   ],
   imports: [

@@ -9,7 +9,7 @@ using API.Models.Users;
 using API.Entities;
 using API.Interfaces;
 using API.Models;
-
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class InvitationController : ControllerBase
@@ -89,8 +89,7 @@ public class InvitationController : ControllerBase
        return _invitationService.SearchPinCode(pinCodeModel.pinCode,pinCodeModel.IdWedding);
     }
     [HttpPost("editWedding")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PinCodeModel))]
-    
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PinCodeModel))]    
     public int GetIdWeddingToEdit(VerifyEditInvitationModel verifyEditInvitationModel)
     {
        return _invitationService.VerifyUserHadInvitation(verifyEditInvitationModel.idUsuario, verifyEditInvitationModel.pinCode);

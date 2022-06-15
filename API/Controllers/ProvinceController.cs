@@ -4,9 +4,10 @@ using API.Models.Provinces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-
+using API.Authorization;
 namespace API.Controllers
 {
+   [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ProvinceController: ControllerBase

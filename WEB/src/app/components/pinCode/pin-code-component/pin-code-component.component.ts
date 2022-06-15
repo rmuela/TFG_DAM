@@ -77,7 +77,7 @@ export class PinCodeComponentComponent implements OnInit {
           next: () => {
 
             this.alertService.success('Pin code is correct', { keepAfterRouteChange: true });
-            this.router.navigate(['../home/edit-weddings/' + this.idWeddingEdit]);
+            this.router.navigate(['../home/invitation/' + this.idWeddingEdit]);
           },
           error: error => {
             this.alertService.error(error);

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Login 10</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="img js-fullheight">
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-5">
+          <h2 class="heading-section"> WEDDING</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <div class="login-wrap p-0">
+
+            <form [formGroup]="createWeddingForm" (ngSubmit)="onSubmit()">
+              
+                <div class="form-group">
+                  <label for="nameCouple">Nombre de los novios:</label>
+                  <input type="text" formControlName="coupleName" class="form-control" 
+                      value="{{invitation.coupleName}}" />
+                  
+                </div>
+
+                <div class="form-group">
+                  <label for="weddingDate">Wedding Date:</label>
+                  <input type="date" formControlName="weddingDate" class="form-control" 
+                    />
+                 
+                </div>
+
+                <div class="form-group">
+                  <label for="placeConvite">Place Convite</label>
+                  <input type="text" formControlName="placeConvite" class="form-control" 
+                     value="{{invitation.placeConvite}}" />
+                  
+                </div>
+
+                <div class="form-group">
+                  <label for="adressConvite">Adress Convite</label>
+                  <input type="text" formControlName="adressConvite" class="form-control"  
+                     value="{{invitation.adressConvite}}" />
+                  
+                </div>
+
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input list="name-provinces" formControlName="cityIdProvince" class="form-control" 
+                    placeholder="{{nameCity}}" 
+                     />
+                  <datalist id="name-provinces">
+                    <option *ngFor="let province of provinces" [value]="province.provinceName">
+                    </option>
+                  </datalist>
+                  
+                </div>
+
+
+
+
+                <div class="form-group">
+                  <label for="hourDinnerConvite">Hour Dinner Convite</label>
+                  <input type="text" formControlName="hourDinnerConvite" class="form-control"  
+                     value="{{invitation.hourDinnerConvite}}" />
+
+                  
+                </div>
+                <div class="form-group">
+                  <label for="transportConvite">Transport Convite</label>
+                  <input type="text" formControlName="transportConvite" class="form-control"  
+                     value="{{invitation.transportConvite}}" />
+
+                 
+                </div>
+                <div class="form-group">
+                  <label for="hourTransportConvite">Hour Transport Convite</label>
+                  <input type="text" formControlName="hourTransportConvite" class="form-control" 
+                      value="{{invitation.hourTransportConvite}}" />
+
+                 
+                </div>
+                <div class="form-group">
+                  <label for="boyPhone">Boy Phone</label>
+                  <input type="text" formControlName="boyPhone" class="form-control"  
+                     value="{{invitation.boyPhone}}"/>
+
+                  
+                </div>
+                <div class="form-group">
+                  <label for="girlPhone">Girl Phone</label>
+                  <input type="text" formControlName="girlPhone" class="form-control"  
+                   value="{{invitation.girlPhone}}" />
+
+                 
+                </div>                
+
+                <div class="form-group">
+                  <button class="btn btn-primary" routerLink="/home" >
+                    
+                    Volver
+                  </button>
+                  
+                </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
