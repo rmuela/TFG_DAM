@@ -6,6 +6,7 @@ import { AuthGuard } from './helpers/auth.guard';
 import { LoginComponent } from './pages/account/login/login.component';
 import { RegisterComponent } from './pages/account/register-component/register-component.component';
 import { CreateWeddingComponentComponent } from './pages/create-wedding/create-wedding-component/create-wedding-component.component';
+import { EditWeddingComponent } from './pages/edit-wedding/edit-wedding/edit-wedding.component';
 import { HomeComponentComponent } from './pages/home/home-component/home-component.component';
 import { ShowWeddingComponentComponent } from './pages/show-weddings/show-wedding-component/show-wedding-component.component';
 
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: 'home/create-wedding',
     component: CreateWeddingComponentComponent, canActivate: [AuthGuard],
   },
+  
+  {
+    path: 'home/show-weddings/verify-pinCode/:id',
+    component: PinCodeComponentComponent, canActivate: [AuthGuard],
+  },
   {
     path: 'home/verify-pinCode',
     component: PinCodeComponentComponent, canActivate: [AuthGuard],
@@ -36,6 +42,10 @@ const routes: Routes = [
   {
     path: 'home/show-weddings',
     component: ShowWeddingComponentComponent, canActivate: [AuthGuard],
+  },
+  {
+    path: 'home/edit-weddings/:id',
+    component: EditWeddingComponent, canActivate: [AuthGuard],
   },
   {
     path: '**',

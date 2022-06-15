@@ -22,159 +22,164 @@
           <div class="login-wrap p-0">
 
             <form [formGroup]="createWeddingForm" (ngSubmit)="onSubmit()">
-              <div class="form-group">
-                <label for="nameCouple">Nombre de los novios:</label>
-                <input type="text" formControlName="coupleName" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['coupleName'].errors }" />
-                <div *ngIf="submitted && createWeddingForm.controls['coupleName'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['coupleName'].errors?.['required']">First Name is
-                    required
+              
+                <div class="form-group">
+                  <label for="nameCouple">Nombre de los novios:</label>
+                  <input type="text" formControlName="coupleName" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['coupleName'].errors }" />
+                  <div *ngIf="submitted && createWeddingForm.controls['coupleName'].errors" class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['coupleName'].errors?.['required']">First Name is
+                      required
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="form-group">
-                <label for="weddingDate">Wedding Date:</label>
-                <input type="date" formControlName="weddingDate" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['weddingDate'].errors }" />
-                <div *ngIf="submitted && createWeddingForm.controls['weddingDate'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['weddingDate'].errors?.['required']">Wedding Date is
-                    required</div>
+                <div class="form-group">
+                  <label for="weddingDate">Wedding Date:</label>
+                  <input type="date" formControlName="weddingDate" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['weddingDate'].errors }" />
+                  <div *ngIf="submitted && createWeddingForm.controls['weddingDate'].errors" class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['weddingDate'].errors?.['required']">Wedding Date is
+                      required</div>
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group">
-                <label for="placeConvite">Place Convite</label>
-                <input type="text" formControlName="placeConvite" class="form-control" placeholder="Bar Antonio"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['placeConvite'].errors }" />
-                <div *ngIf="submitted && createWeddingForm.controls['placeConvite'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['placeConvite'].errors?.['required']">Place Convite is
-                    required</div>
+                <div class="form-group">
+                  <label for="placeConvite">Place Convite</label>
+                  <input type="text" formControlName="placeConvite" class="form-control" placeholder="Bar Antonio"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['placeConvite'].errors }" />
+                  <div *ngIf="submitted && createWeddingForm.controls['placeConvite'].errors" class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['placeConvite'].errors?.['required']">Place Convite is
+                      required</div>
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group">
-                <label for="adressConvite">Adress Convite</label>
-                <input type="text" formControlName="adressConvite" class="form-control" placeholder="C/ molinos Nº11 "
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['adressConvite'].errors }" />
-                <div *ngIf="submitted && createWeddingForm.controls['adressConvite'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['adressConvite'].errors?.['required']">Adress Convite is
-                    required</div>
+                <div class="form-group">
+                  <label for="adressConvite">Adress Convite</label>
+                  <input type="text" formControlName="adressConvite" class="form-control" placeholder="C/ molinos Nº11 "
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['adressConvite'].errors }" />
+                  <div *ngIf="submitted && createWeddingForm.controls['adressConvite'].errors" class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['adressConvite'].errors?.['required']">Adress Convite is
+                      required</div>
 
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group">
-                <label for="city">City</label>
-                <input list="name-provinces" formControlName="cityIdProvince" class="form-control" placeholder="Valencia"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['cityIdProvince'].errors }" />
-                <datalist id="name-provinces">
-                  <option *ngFor="let province of provinces" [value]="province.provinceName">{{province.provinceName}}</option>                  
-                </datalist>
-                <div *ngIf="submitted && createWeddingForm.controls['cityIdProvince'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['cityIdProvince'].errors?.['required']">city is
-                    required</div>
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input list="name-provinces" formControlName="cityIdProvince" class="form-control"
+                    placeholder="Valencia"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['cityIdProvince'].errors }" />
+                  <datalist id="name-provinces">
+                    <option *ngFor="let province of provinces" [value]="province.provinceName">{{province.provinceName}}
+                    </option>
+                  </datalist>
+                  <div *ngIf="submitted && createWeddingForm.controls['cityIdProvince'].errors"
+                    class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['cityIdProvince'].errors?.['required']">city is
+                      required</div>
+                  </div>
                 </div>
-              </div>
 
+                <div class="form-group">
+                  <label for="hourDinnerConvite">Hour Dinner Convite</label>
+                  <input type="text" formControlName="hourDinnerConvite" class="form-control" placeholder="19:00"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['hourDinnerConvite'].errors }" />
 
-
-
-              <div class="form-group">
-                <label for="hourDinnerConvite">Hour Dinner Convite</label>
-                <input type="text" formControlName="hourDinnerConvite" class="form-control" placeholder="19:00"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['hourDinnerConvite'].errors }" />
-
-                <div *ngIf="submitted && createWeddingForm.controls['hourDinnerConvite'].errors"
-                  class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['hourDinnerConvite'].errors?.['required']">Hour Dinner Convite
-                    is
-                    required</div>
-                  <div *ngIf="createWeddingForm.controls['hourDinnerConvite'].errors?.['minlength']">Hour Dinner Convite
-                    must
-                    be at least 6
-                    characters</div>
+                  <div *ngIf="submitted && createWeddingForm.controls['hourDinnerConvite'].errors"
+                    class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['hourDinnerConvite'].errors?.['required']">Hour Dinner
+                      Convite
+                      is
+                      required</div>
+                    <div *ngIf="createWeddingForm.controls['hourDinnerConvite'].errors?.['minlength']">Hour Dinner
+                      Convite
+                      must
+                      be at least 6
+                      characters</div>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="transportConvite">Transport Convite</label>
-                <input type="text" formControlName="transportConvite" class="form-control" placeholder="ninguno"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['transportConvite'].errors }" />
+                <div class="form-group">
+                  <label for="transportConvite">Transport Convite</label>
+                  <input type="text" formControlName="transportConvite" class="form-control" placeholder="ninguno"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['transportConvite'].errors }" />
 
-                <div *ngIf="submitted && createWeddingForm.controls['transportConvite'].errors"
-                  class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['transportConvite'].errors?.['required']">Transport Convite is
-                    required</div>
-                  <div *ngIf="createWeddingForm.controls['transportConvite'].errors?.['minlength']">Transport Convite
-                    must
-                    be at least 6
-                    characters</div>
+                  <div *ngIf="submitted && createWeddingForm.controls['transportConvite'].errors"
+                    class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['transportConvite'].errors?.['required']">Transport Convite
+                      is
+                      required</div>
+                    <div *ngIf="createWeddingForm.controls['transportConvite'].errors?.['minlength']">Transport Convite
+                      must
+                      be at least 6
+                      characters</div>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="hourTransportConvite">Hour Transport Convite</label>
-                <input type="text" formControlName="hourTransportConvite" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['hourTransportConvite'].errors }" />
+                <div class="form-group">
+                  <label for="hourTransportConvite">Hour Transport Convite</label>
+                  <input type="text" formControlName="hourTransportConvite" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['hourTransportConvite'].errors }" />
 
-                <div *ngIf="submitted && createWeddingForm.controls['hourTransportConvite'].errors"
-                  class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['hourTransportConvite'].errors?.['required']">Hour Transport
-                    Convite
-                    is
-                    required</div>
-                  <div *ngIf="createWeddingForm.controls['hourTransportConvite'].errors?.['minlength']">Hour Transport
-                    Convite must
-                    be at least 6
-                    characters</div>
+                  <div *ngIf="submitted && createWeddingForm.controls['hourTransportConvite'].errors"
+                    class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['hourTransportConvite'].errors?.['required']">Hour Transport
+                      Convite
+                      is
+                      required</div>
+                    <div *ngIf="createWeddingForm.controls['hourTransportConvite'].errors?.['minlength']">Hour Transport
+                      Convite must
+                      be at least 6
+                      characters</div>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="boyPhone">Boy Phone</label>
-                <input type="text" formControlName="boyPhone" class="form-control" placeholder="975345678"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['boyPhone'].errors }" />
+                <div class="form-group">
+                  <label for="boyPhone">Boy Phone</label>
+                  <input type="text" formControlName="boyPhone" class="form-control" placeholder="975345678"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['boyPhone'].errors }" />
 
-                <div *ngIf="submitted && createWeddingForm.controls['boyPhone'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['boyPhone'].errors?.['required']">Boy Phone is
-                    required</div>
-                  <div *ngIf="createWeddingForm.controls['boyPhone'].errors?.['minlength']">Boy Phone must
-                    be at least 6
-                    characters</div>
+                  <div *ngIf="submitted && createWeddingForm.controls['boyPhone'].errors" class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['boyPhone'].errors?.['required']">Boy Phone is
+                      required</div>
+                    <div *ngIf="createWeddingForm.controls['boyPhone'].errors?.['minlength']">Boy Phone must
+                      be at least 6
+                      characters</div>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="girlPhone">Girl Phone</label>
-                <input type="text" formControlName="girlPhone" class="form-control" placeholder="975345678"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['girlPhone'].errors }" />
+                <div class="form-group">
+                  <label for="girlPhone">Girl Phone</label>
+                  <input type="text" formControlName="girlPhone" class="form-control" placeholder="975345678"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['girlPhone'].errors }" />
 
-                <div *ngIf="submitted && createWeddingForm.controls['girlPhone'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['girlPhone'].errors?.['required']">Girl Phone is
-                    required</div>
-                  <div *ngIf="createWeddingForm.controls['girlPhone'].errors?.['minlength']">Girl Phone must
-                    be at least 9
-                    characters</div>
+                  <div *ngIf="submitted && createWeddingForm.controls['girlPhone'].errors" class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['girlPhone'].errors?.['required']">Girl Phone is
+                      required</div>
+                    <div *ngIf="createWeddingForm.controls['girlPhone'].errors?.['minlength']">Girl Phone must
+                      be at least 9
+                      characters</div>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="pinCode">Pin Code</label>
-                <input type="text" formControlName="pinCode" class="form-control" placeholder="2345"
-                  [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['password'].errors }" />
+                <div class="form-group">
+                  <label for="pinCode">Pin Code</label>
+                  <input type="text" formControlName="pinCode" class="form-control" placeholder="2345"
+                    [ngClass]="{ 'is-invalid': submitted && createWeddingForm.controls['password'].errors }" />
 
-                <div *ngIf="submitted && createWeddingForm.controls['pinCode'].errors" class="invalid-feedback">
-                  <div *ngIf="createWeddingForm.controls['pinCode'].errors?.['required']">Password is
-                    required</div>
-                  <div *ngIf="createWeddingForm.controls['pinCode'].errors?.['minlength']">Password must
-                    be at least 6
-                    characters</div>
+                  <div *ngIf="submitted && createWeddingForm.controls['pinCode'].errors" class="invalid-feedback">
+                    <div *ngIf="createWeddingForm.controls['pinCode'].errors?.['required']">Password is
+                      required</div>
+                    <div *ngIf="createWeddingForm.controls['pinCode'].errors?.['minlength']">Password must
+                      be at least 6
+                      characters</div>
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group">
-                <button [disabled]="loading" class="btn btn-primary">
-                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                  Sign in
-                </button>
-                <a routerLink="../" class="btn btn-link">Cancel</a>
-              </div>
+                <div class="form-group">
+                  <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Sign in
+                  </button>
+                  <a routerLink="../" class="btn btn-link">Cancel</a>
+                </div>
+              
             </form>
           </div>
         </div>

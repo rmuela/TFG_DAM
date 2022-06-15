@@ -1,20 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Login 10</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	
+
+	</head>
+
 <div>
-
-    <form  class="d-flex justify-content-center">
+    <form   [formGroup]="pinCodeForm" class="d-flex justify-content-center" (ngSubmit)="onSubmit()"  >
         <h1>PIN CODE:</h1>
-        <input type="password" maxlength=1   />
-        <input type="password" maxlength=1 />
-        <input type="password" maxlength=1 />
-        <input type="password" maxlength=1 />
+        <input type="{{inputType}}" formControlName="digit1" maxlength=1 required  pattern="[0-9]"  />
+        <input type="{{inputType}}" formControlName="digit2" maxlength=1 required pattern="[0-9]"/>
+        <input type="{{inputType}}" formControlName="digit3" maxlength=1 required pattern="[0-9]"/>
+        <input type="{{inputType}}" formControlName="digit4"  maxlength=1 required pattern="[0-9]"/>  
+
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary" [disabled]="!pinCodeForm.valid" >
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Enter
+            </button>
+        </div>
+        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password " id="iconHideShowPassword" (click)="hideShowPassword()"></span>
     </form>
-    
-    <div id="code-block" class="special hidden" >
-        Wait your special code is <span id="code"></span>?
-        <br />
-        <i >Reset
-        </i>
-    </div>
 </div>
-
-
-

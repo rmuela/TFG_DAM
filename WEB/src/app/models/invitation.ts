@@ -1,4 +1,5 @@
 export class Invitation {
+    id!:number
     coupleName!: string
     weddingDate!: Date;
     placeConvite!: string ;

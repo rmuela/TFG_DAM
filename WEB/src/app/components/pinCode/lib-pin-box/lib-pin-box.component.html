@@ -1,0 +1,25 @@
+<!-- 
+<div class="lib-pib-box__group" *ngFor="let _ of _groupList; let last = last; let groupIndex = index">
+    <input
+      *ngFor="let _ of _boxInGroupList; let _boxInGroupIndex = index"
+      #inputElems
+      lib-pin-box-input
+      [type]="type"
+      tabindex="0"
+      [class.lib-pib-box__input--invalid]="_isBoxInvalid(_getIndex(groupIndex, _boxInGroupIndex))"
+      [class.lib-pib-box__input--desktop]="_isDesktop"
+      autocapitalize="off"
+      [index]="_getIndex(groupIndex, _boxInGroupIndex)"
+      [disabled]="_disabled"
+      (valueChange)="_onPinValueChange($event.index)"
+      (pasteValue)="_onPaste($event)"
+      (focusNext)="_focusNext($event)"
+      (focusPrev)="_focusPrev($event)"
+      (blur)="_onBlur()">
+
+    <div class="lib-pin-box__group-split-wrapper">
+      <div class="lib-pin-box__group-split" [class.lib-pin-box__group-split--last]="last"></div>
+    </div>
+
+  </div>
+-->

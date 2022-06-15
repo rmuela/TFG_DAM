@@ -22,10 +22,10 @@ form  {
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: 87vh;
+  min-height: 100vh;
     
 }
-input {
+input  {
     margin: 0 0.5rem;
     padding: 0.5rem;
     border: 1px solid #333;
@@ -48,4 +48,22 @@ input {
 .special.hidden {
     opacity: 0;
     visibility: hidden;
+}
+button{
+    width: 100px;
+    height: 50px;
+   margin-top:10%;
+   margin-right: 10%;
+}
+#boton{
+    width: 100px;
+    height: 50px;
+}
+#iconHideShowPassword {
+	display: block;
+  font-family: FontAwesome;
+  font-size: 24px;
+  right: 1;
+  top: calc(80% - 10px);
+  width: 1.3em;
 }

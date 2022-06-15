@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { User } from '../models';
 import { environment } from 'src/environments/environment.prod';
 import { Invitation } from '../models/invitation';
+import { PinCode } from '../models/pinCode';
+import { SearchUserToEdit } from '../models/searchUserToEdit';
 
 
 @Injectable({ providedIn: 'root' })
@@ -25,43 +27,29 @@ export class InvitationService {
     public get userValue(): Invitation {
         return this.invitationSubject.value;
     }
-    /*
-    login(username: any, password: any) {
-        return this.http.post<invitation>(`${environment.apiUrl}/users/authenticate`, { username, password })
-            .pipe(map(invitation => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.invitationSubject.next(invitation);
-                return invitation;
-            }));
-    }
-*/
+    
    createWedding(invitation: Invitation) {
         return this.http.post(`${environment.apiUrl}/invitation`, invitation);
    }
-
-    register(user: User) {
-        return this.http.post(`${environment.apiUrl}/users/register`, user);
-    }
+   verifyPinCode(pinCode: PinCode){
+        return this.http.post(`${environment.apiUrl}/invitation/pinCode`, pinCode);
+   }   
 
     getAllInvitations():Observable<Invitation[]> {
         return this.http.get<Invitation[]>(`${environment.apiUrl}/invitation`);
     }
 
-    getById(id: string) {
-        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+    getInvitationById(id: Number) {
+        return this.http.get<Invitation>(`${environment.apiUrl}/invitation/${id}`);
+    }
+    editWedding(body: Invitation,id:number){
+        return this.http.put<Invitation>(environment.apiUrl+"/invitation/"+id, body);
+    }
+    
+    verifyUserCanEditInvitation(searchUserToEdit: SearchUserToEdit){
+        return this.http.post(`${environment.apiUrl}/invitation/editWedding`, searchUserToEdit);
     }
 
     
-    /*
-    delete(id: string) {
-        return this.http.delete(`${environment.apiUrl}/users/${id}`)
-            .pipe(map(x => {
-                // auto logout if the logged in user deleted their own record
-                if (id == this.userValue.id) {
-                    this.logout();
-                }
-                return x;
-            }));
-    }*/
+    
 }

@@ -11,13 +11,14 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { AlertComponent } from './components/alert/alert-component/alert-component.component';
 import { RegisterComponent } from './pages/account/register-component/register-component.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FooterComponentComponent } from './components/footer/footer-component/footer-component.component';
 import { NavComponentComponent } from './components/nav/nav-component/nav-component.component';
 import { HeaderComponentComponent } from './components/header/header-component/header-component.component';
 import { CreateWeddingComponentComponent } from './pages/create-wedding/create-wedding-component/create-wedding-component.component';
 import { PinCodeComponentComponent } from './components/pinCode/pin-code-component/pin-code-component.component';
 import { ShowWeddingComponentComponent } from './pages/show-weddings/show-wedding-component/show-wedding-component.component';
+import { EditWeddingComponent } from './pages/edit-wedding/edit-wedding/edit-wedding.component';
 
 @NgModule({
   declarations: [   
@@ -32,7 +33,9 @@ import { ShowWeddingComponentComponent } from './pages/show-weddings/show-weddin
     HeaderComponentComponent,
     CreateWeddingComponentComponent,
     PinCodeComponentComponent,
-    ShowWeddingComponentComponent
+    ShowWeddingComponentComponent,
+    EditWeddingComponent    
+    
   ],
   imports: [
     CommonModule,
@@ -40,10 +43,12 @@ import { ShowWeddingComponentComponent } from './pages/show-weddings/show-weddin
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
