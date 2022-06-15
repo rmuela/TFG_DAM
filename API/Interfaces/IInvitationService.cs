@@ -12,4 +12,5 @@ public interface IInvitationService
 
     public InvitationDTO Modify(InvitationEditDTO invitationEditDTO, int guid);
     public int SearchPinCode(string pinCode,int id);
+    public int VerifyUserHadInvitation(int idUsuario, string pinCode);
 }

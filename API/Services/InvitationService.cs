@@ -91,7 +91,20 @@ namespace API.Services
             InvitationDTO invitationDTO = GetById(Id);
             
            if (!BCrypt.Net.BCrypt.Verify( Pincode, invitationDTO.pinCode))
-                throw new AppException("PinCode  is incorrect"); 
+                 throw new AppException("PinCode  is incorrect"); 
+            
+            return invitationDTO.Id;
+        }
+        public int VerifyUserHadInvitation(int idUsuario,string pinCode)
+        {
+            
+            
+            var idInvitation = _context.Invitations.Where( x => x.usuario.Id.Equals(idUsuario)).Select(x => x.Id).FirstOrDefault();
+            if(idInvitation == 0) 
+                throw new AppException("The user is not the owner of any invitation");
+            InvitationDTO invitationDTO = GetById(idInvitation);
+            if (!BCrypt.Net.BCrypt.Verify(pinCode, invitationDTO.pinCode))
+                 throw new AppException("PinCode  is incorrect"); 
             
             return invitationDTO.Id;
         }

@@ -8,6 +8,7 @@ using API.Helpers;
 using API.Models.Users;
 using API.Entities;
 using API.Interfaces;
+using API.Models;
 
 [ApiController]
 [Route("[controller]")]
@@ -74,17 +75,27 @@ public class InvitationController : ControllerBase
     }
 
     [HttpPut("{Id}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(InvitationDTO))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(InvitationEditDTO))]
     public ActionResult<InvitationDTO> Put([FromBody] InvitationEditDTO invitationEditDTO, int Id)
     {
 
         return Ok(_invitationService.Modify(invitationEditDTO, Id));
     }
     [HttpPost("pinCode")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(InvitationDTO))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PinCodeModel))]
     
     public int GetPinCode( PinCodeModel pinCodeModel)
     {
        return _invitationService.SearchPinCode(pinCodeModel.pinCode,pinCodeModel.IdWedding);
     }
+    [HttpPost("editWedding")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PinCodeModel))]
+    
+    public int GetIdWeddingToEdit(VerifyEditInvitationModel verifyEditInvitationModel)
+    {
+       return _invitationService.VerifyUserHadInvitation(verifyEditInvitationModel.idUsuario, verifyEditInvitationModel.pinCode);
+    }
+
+
+    
 }
