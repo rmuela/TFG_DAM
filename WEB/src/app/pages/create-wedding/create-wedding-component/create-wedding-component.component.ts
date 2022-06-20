@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs';
+import { first, map, Observable } from 'rxjs';
 import { InvitationService } from 'src/app/services/invitation.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { Province } from 'src/app/models/province';
@@ -22,7 +22,12 @@ export class CreateWeddingComponentComponent implements OnInit {
   submitted = false;
   inputType = 'password';
   telPattern = "[0-9]{3}[ -][0-9]{3}[ -][0-9]{3}";
+  hourPattern = "[0-2]{1}[0-9]{1}[ : ][0-5]{1}[0-9]{1}";  
   pinCodePattern="[0-9]{4}"
+  nameCouplePattern="^[A-Za-z -]+$"
+  isHidden: boolean | undefined;
+  datepipe: any;
+  fechaActual: Date | undefined
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -36,7 +41,7 @@ export class CreateWeddingComponentComponent implements OnInit {
 
   ngOnInit() {
     this._provinceService.getAllProvinces().subscribe(items =>
-      this.provinces = items
+      this.provinces = items     
     );
     this.createWeddingForm = this.formBuilder.group({
       coupleName: ['', Validators.required],
@@ -45,16 +50,39 @@ export class CreateWeddingComponentComponent implements OnInit {
       adressConvite: ['', Validators.required],
       cityIdProvince: ['', Validators.required],
       hourDinnerConvite: ['', Validators.required],
-      transportConvite: ['', ],
+      transportConvite: ['', Validators.required],
       hourTransportConvite: ['', ],
       boyPhone: ['', Validators.required,],
       girlPhone: ['', Validators.required],
       pinCode: ['', Validators.required],
       usuarioId: [''],
     });
-
+    
+    
   }
-
+  
+  
+  dataGreatThanValidator(): boolean{
+    this.fechaActual = new Date();
+    //this.fechaActual.getDay
+    
+    var fechaActualToComparar = this.fechaActual.getFullYear() +"-"+ this.fechaActual.getMonth() +"-"+ this.fechaActual.getDate() 
+    if(this.createWeddingForm.get('weddingDate')?.value >= fechaActualToComparar ){
+      return true
+    }else{
+      return false
+    }
+      
+  }
+  selectInput(event:  any) {
+    let selected = event.target.value;
+    if (selected == "ninguno") {
+      this.isHidden = true;
+      this.createWeddingForm.value.hourTransportConvite = "nada"
+    } else {
+      this.isHidden = false;
+    }
+  }
   // convenience getter for easy access to form fields
   get f() { return this.createWeddingForm.controls; }
 
@@ -68,7 +96,9 @@ export class CreateWeddingComponentComponent implements OnInit {
 
     // reset alerts on submit
     this.alertService.clear();
-
+    
+    
+    
     // stop here if form is invalid
     if (this.createWeddingForm.invalid) {
       window.alert("Formulario no valido")
@@ -80,7 +110,7 @@ export class CreateWeddingComponentComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Registration successful', { keepAfterRouteChange: true });
+          //this.alertService.success('Wedding create successful', { keepAfterRouteChange: true });
           this.router.navigate(['../home']);
         },
         error: error => {

@@ -26,6 +26,7 @@ export class ShowInvitationsComponent implements OnInit {
   inputType = 'password';
   nameCity : string | undefined;
   date: Date | undefined;
+  isHidden: boolean | undefined;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -54,6 +55,11 @@ export class ShowInvitationsComponent implements OnInit {
       this.nameCity = idCity?.provinceName;     
       let latest_date =this.datePipe.transform(this.invitation.weddingDate, 'yyyy-MM-dd');
       this.createWeddingForm.controls['weddingDate'].setValue(latest_date);
+      if(weddingResponse.transportConvite == "ninguno"){
+        this.isHidden = true;
+      }else{
+        this.isHidden = false;
+      }
       //this.SetInitiaValues() 
     })  
     this.createWeddingForm = this.formBuilder.group({
@@ -137,7 +143,7 @@ export class ShowInvitationsComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this._alertService.success('Update wedding successful', { keepAfterRouteChange: true });
+          //this._alertService.success('Update wedding successful', { keepAfterRouteChange: true });
           this.router.navigate(['../home']);
         },
         error: error => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Invitation } from 'src/app/models/invitation';
+import { SearchUserToEdit } from 'src/app/models/searchUserToEdit';
 import { AlertService } from 'src/app/services/alert.service';
 import { InvitationService } from 'src/app/services/invitation.service';
 
@@ -15,6 +16,7 @@ export class ShowWeddingComponentComponent implements OnInit {
   
     submitted = false;
     inputType='password'
+    idUsuario: number | undefined;
     constructor(
        
         private route: ActivatedRoute,
@@ -27,9 +29,23 @@ export class ShowWeddingComponentComponent implements OnInit {
     }
   
     ngOnInit() {
-      this._invitationService.getAllInvitations().subscribe(items => 
+      this.idUsuario = this.route.snapshot.params['id'];
+   
+      if (this.idUsuario != undefined && this.idUsuario != null) {
+        const userToEdit: SearchUserToEdit = new SearchUserToEdit();
+        userToEdit.pinCode = "1234"
+        userToEdit.idUsuario = this.idUsuario
+        
+        this._invitationService.AllWeddingByUser(userToEdit).subscribe(items => 
           this.invitations = items
-          );       
+        ); 
+      }else{
+        this._invitationService.getAllInvitations().subscribe(items => 
+          this.invitations = items
+          );      
+      }
+
+       
         
     }
   

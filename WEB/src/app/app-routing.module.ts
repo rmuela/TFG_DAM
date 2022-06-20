@@ -47,6 +47,10 @@ const routes: Routes = [
     component: PinCodeComponentComponent, canActivate: [AuthGuard],
   },
   {
+    path: 'home/show-weddings/:id',
+    component: ShowWeddingComponentComponent, canActivate: [AuthGuard],
+  },
+  {
     path: 'home/show-weddings',
     component: ShowWeddingComponentComponent, canActivate: [AuthGuard],
   },

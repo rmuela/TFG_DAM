@@ -41,7 +41,12 @@ public class InvitationController : ControllerBase
     {
         return Ok(_invitationService.GetAll());
     }
-
+    [HttpPost("user")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(InvitationDTO))]
+    public ActionResult<InvitationDTO> GetByUser(VerifyEditInvitationModel  verifyEditInvitationModel)
+    {
+        return Ok(_invitationService.GetAllByUser(verifyEditInvitationModel.idUsuario));
+    }
     
     [HttpGet("{Id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(InvitationDTO))]

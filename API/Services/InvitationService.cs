@@ -71,13 +71,26 @@ namespace API.Services
 
         public InvitationDTO Modify(InvitationEditDTO invitationEditDTO, int guid)
         {
+            Province idProvince = _context.provinces.FirstOrDefault(x => x.IdProvince == invitationEditDTO.cityIdProvince);
             var _mappedItem = _mapper.Map<Invitation>(invitationEditDTO);
             _mappedItem.Id = guid;
 
             Invitation modifiedItem = _context.Invitations.FirstOrDefault(x => x.Id == guid);
-            _mappedItem.pinCode = modifiedItem.pinCode;         
+            _mappedItem.pinCode = modifiedItem.pinCode;
+            if(_mappedItem.city is null)
+            {
+                _mappedItem.city = new Province();
+                _mappedItem.city.IdProvince = idProvince.IdProvince;
+                _mappedItem.city.ProvinceName = idProvince.ProvinceName;
+            }
+            else
+            {
+                _mappedItem.city = idProvince;
+               
+            }
             
-            
+            _mappedItem.idCity = idProvince.IdProvince;
+
 
             _context.Entry(modifiedItem).CurrentValues.SetValues(_mappedItem);
 
@@ -107,6 +120,12 @@ namespace API.Services
                  throw new AppException("PinCode  is incorrect"); 
             
             return invitationDTO.Id;
+        }
+
+        public IEnumerable<InvitationDTO> GetAllByUser(int idUsuario)
+        {
+            
+            return _mapper.Map<IEnumerable<InvitationDTO>>(_context.Invitations.Where( x => x.usuario.Id.Equals(idUsuario)));        
         }
 
     }

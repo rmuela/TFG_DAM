@@ -9,6 +9,7 @@ import { ProvinceService } from 'src/app/services/province.service';
 import { User } from 'src/app/models';
 import { PinCode } from 'src/app/models/pinCode';
 import { SearchUserToEdit } from 'src/app/models/searchUserToEdit';
+import { Invitation } from 'src/app/models/invitation';
 
 
 @Component({
@@ -23,16 +24,19 @@ export class PinCodeComponentComponent implements OnInit {
   submitted = false;
   inputType = 'password';
   idWeddingEdit: any | null;
+  invitations: Invitation[] | null;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private invitationService: InvitationService,
     private alertService: AlertService,
-    private _provinceService: ProvinceService
+    private _provinceService: ProvinceService,
+    private _invitationService: InvitationService
   ) {
     this.provinces = null;
     this.idWeddingEdit = null;
+    this.invitations = null;
   }
   ngOnInit() {
     this._provinceService.getAllProvinces().subscribe(items =>
@@ -45,7 +49,19 @@ export class PinCodeComponentComponent implements OnInit {
       digit4: ['', Validators.required],
 
     });
-
+    const userToEdit: SearchUserToEdit = new SearchUserToEdit();
+      userToEdit.pinCode = "1234";
+      var usuarioLogeado: User = JSON.parse(localStorage['user']);
+      userToEdit.idUsuario = Number(usuarioLogeado.id);
+      
+      this._invitationService.AllWeddingByUser(userToEdit).subscribe(items => 
+        this.invitations = items
+        );
+      if(this.invitations != undefined){
+        if(this.invitations?.length > 0) {
+          this.router.navigate(["./show-weddings/"+userToEdit.idUsuario])
+        }    
+    }
 
   }
   concatValueInput() {
@@ -76,7 +92,7 @@ export class PinCodeComponentComponent implements OnInit {
         .subscribe({
           next: () => {
 
-            this.alertService.success('Pin code is correct', { keepAfterRouteChange: true });
+            //this.alertService.success('Pin code is correct', { keepAfterRouteChange: true });
             this.router.navigate(['../home/invitation/' + this.idWeddingEdit]);
           },
           error: error => {
@@ -88,13 +104,16 @@ export class PinCodeComponentComponent implements OnInit {
       const userToEdit: SearchUserToEdit = new SearchUserToEdit();
       userToEdit.pinCode = this.concatValueInput();
       var usuarioLogeado: User = JSON.parse(localStorage['user']);
-      userToEdit.idUsuario = Number(usuarioLogeado.id);
+       userToEdit.idUsuario = Number(usuarioLogeado.id);
+      
+      
+
       this.invitationService.verifyUserCanEditInvitation(userToEdit).
         pipe(first())
         .subscribe({
           next: (data) => {
             this.idWeddingEdit = data;
-            this.alertService.success('You can edit', { keepAfterRouteChange: true });
+            //this.alertService.success('You can edit', { keepAfterRouteChange: true });
             this.router.navigate(['../home/edit-weddings/' + this.idWeddingEdit]);
           },
           error: error => {

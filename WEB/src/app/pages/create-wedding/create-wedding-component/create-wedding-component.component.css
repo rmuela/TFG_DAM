@@ -227,3 +227,6 @@
   top: calc(80% - 10px);
   width: 1.3em;
 }
+#error{
+	color: red;
+}

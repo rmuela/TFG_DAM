@@ -20,14 +20,21 @@ import { DatePipe } from '@angular/common';
 export class EditWeddingComponent implements OnInit {
 
   provinces: Province[] | null;
-  invitation: Invitation; 
+  invitation: Invitation;
   idWedding: number = 0;
   createWeddingForm!: FormGroup;
   loading = false;
   submitted = false;
   inputType = 'password';
-  nameCity : string | undefined;
+  nameCity: string | undefined;
   date: Date | undefined;
+  telPattern = "[0-9]{3}[ -][0-9]{3}[ -][0-9]{3}";
+  hourPattern = "[0-2]{1}[0-9]{1}[ : ][0-5]{1}[0-9]{1}";  
+  pinCodePattern="[0-9]{4}"
+  nameCouplePattern="^[A-Za-z -]+$"
+  isHidden: boolean | undefined;
+  dateBD : string | null;
+  editBoda= true
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -36,10 +43,11 @@ export class EditWeddingComponent implements OnInit {
     private _alertService: AlertService,
     private _provinceService: ProvinceService,
     private datePipe: DatePipe
-    
+
   ) {
     this.provinces = null;
     this.invitation = new Invitation();
+    this.dateBD = null;
   }
 
   ngOnInit() {
@@ -48,51 +56,66 @@ export class EditWeddingComponent implements OnInit {
     );
 
     this.createWeddingForm = this.formBuilder.group({
-      coupleName: ['', ],
-      weddingDate: ['', ],
-      placeConvite: ['', ],
+      coupleName: ['',],
+      weddingDate: ['',],
+      placeConvite: ['',],
       adressConvite: ['',],
-      cityIdProvince: ['', ],
-      hourDinnerConvite: ['', ],
-      transportConvite: ['', ],
-      hourTransportConvite: ['', ],
-      boyPhone: ['', ],
-      girlPhone: ['', ],
-      
-      
+      cityIdProvince: ['',],
+      hourDinnerConvite: ['',],
+      transportConvite: ['',],
+      hourTransportConvite: ['',],
+      boyPhone: ['',],
+      girlPhone: ['',],
+
+
     });
 
-    this.idWedding= this.route.snapshot.params['id']; 
-    this._invitationService.getInvitationById(this.idWedding).subscribe( weddingResponse => {
-      var idCity = this.provinces?.find(x => x.idProvince == weddingResponse.cityIdProvince );
-      this.invitation = weddingResponse;     
-      this.nameCity = idCity?.provinceName;     
-      let latest_date =this.datePipe.transform(this.invitation.weddingDate, 'yyyy-MM-dd');
-      this.createWeddingForm.controls['weddingDate'].setValue(latest_date);
+    this.idWedding = this.route.snapshot.params['id'];
+    this._invitationService.getInvitationById(this.idWedding).subscribe(weddingResponse => {
+      var idCity = this.provinces?.find(x => x.idProvince == weddingResponse.cityIdProvince);
+      this.invitation = weddingResponse;
+      this.nameCity = idCity?.provinceName;
+      this.dateBD = this.datePipe.transform(this.invitation.weddingDate, 'yyyy-MM-dd');
+      //this.createWeddingForm.value.weddingDate = latest_date;
+      this.createWeddingForm.controls['weddingDate'].setValue(this.dateBD)
+      this.createWeddingForm.value.coupleName = weddingResponse.coupleName;
+      //this.createWeddingForm.value.weddingDate = weddingResponse.weddingDate;
+      this.createWeddingForm.value.placeConvite = weddingResponse.placeConvite;
+      this.createWeddingForm.value.adressConvite = weddingResponse.adressConvite;
+      this.createWeddingForm.value.hourDinnerConvite = weddingResponse.hourDinnerConvite;
+      this.createWeddingForm.value.transportConvite = weddingResponse.transportConvite;
+      this.createWeddingForm.value.hourTransportConvite = weddingResponse.hourTransportConvite;
+      this.createWeddingForm.value.boyPhone = weddingResponse.boyPhone;
+      this.createWeddingForm.value.girlPhone = weddingResponse.girlPhone;
+      this.createWeddingForm.value.cityIdProvince = idCity?.provinceName;
+      if(weddingResponse.transportConvite == "ninguno"){
+        this.isHidden = true;        
+      }else{
+        this.isHidden = false;
+      }
       //this.SetInitiaValues() 
-    })  
+    })
 
   }
 
-  SetInitiaValues(){
-    this.createWeddingForm.controls['coupleName'].setValue(this.invitation.coupleName);
-    this.createWeddingForm.controls['weddingDate'].setValue(this.invitation.weddingDate);
-    this.createWeddingForm.controls['placeConvite'].setValue(this.invitation.placeConvite);
-    this.createWeddingForm.controls['adressConvite'].setValue(this.invitation.adressConvite);
-    this.createWeddingForm.controls['hourDinnerConvite'].setValue(this.invitation.hourDinnerConvite);
-    this.createWeddingForm.controls['transportConvite'].setValue(this.invitation.transportConvite);
-    this.createWeddingForm.controls['hourTransportConvite'].setValue(this.invitation.hourTransportConvite);
-    this.createWeddingForm.controls['boyPhone'].setValue(this.invitation.boyPhone);
-    this.createWeddingForm.controls['girlPhone'].setValue(this.invitation.girlPhone);
+ 
+  selectInput(event:  any) {
+    let selected = event.target.value;
+    if (selected == "ninguno") {
+      this.isHidden = true;
+      this.createWeddingForm.value.hourTransportConvite = "nada"
+    } else {
+      this.isHidden = false;
+    }
   }
   // convenience getter for easy access to form fields
   get f() { return this.createWeddingForm.controls; }
 
   onSubmit() {
-    const nameCityUser: String = this.createWeddingForm.controls['cityIdProvince'].value;
-    var idCity = this.provinces?.find(x => x.provinceName == nameCityUser);
-    this.createWeddingForm.controls['cityIdProvince'].setValue(idCity?.idProvince);
-    
+    /* const nameCityUser: String =this.createWeddingForm.value.cityIdProvince.value;
+     var idCity = this.provinces?.find(x => x.provinceName == nameCityUser);
+    this.createWeddingForm.value.cityIdProvince.setValue(idCity?.idProvince);*/
+
     this.submitted = true;
 
     // reset alerts on submit
@@ -102,13 +125,85 @@ export class EditWeddingComponent implements OnInit {
     if (this.createWeddingForm.invalid) {
       return;
     }
+    const nameCityUser: String = this.createWeddingForm.value.cityIdProvince
+    var idCity = this.provinces?.find(x => x.provinceName == nameCityUser);
+    //this.createWeddingForm.controls['cityIdProvince'].setValue(idCity?.idProvince);
+    const invitationEdit: Invitation = new Invitation();
+    if(this.createWeddingForm.controls['coupleName'].value != "") 
+    {
+      invitationEdit.coupleName = this.createWeddingForm.controls['coupleName'].value;
+    }else
+    {
+        invitationEdit.coupleName = this.invitation.coupleName;
+    }
+    if(this.createWeddingForm.controls['weddingDate'].value != "")  
+    {
+      invitationEdit.weddingDate = this.createWeddingForm.value.weddingDate
+    } else
+    {
+      invitationEdit.weddingDate = this.invitation.weddingDate
+    }
+    if(this.createWeddingForm.controls['placeConvite'].value != "")  
+    {
+      invitationEdit.placeConvite = this.createWeddingForm.value.placeConvite
+    } else
+    {
+      invitationEdit.placeConvite = this.invitation.placeConvite
+    }
+    if(this.createWeddingForm.controls['adressConvite'].value != "")  
+    {
+      invitationEdit.adressConvite = this.createWeddingForm.value.adressConvite
+    } else
+    {
+      invitationEdit.adressConvite = this.invitation.adressConvite
+    }
+    if(this.createWeddingForm.controls['hourDinnerConvite'].value != "")  
+    {
+      invitationEdit.hourDinnerConvite = this.createWeddingForm.value.hourDinnerConvite
+    } else
+    {
+      invitationEdit.hourDinnerConvite = this.invitation.hourDinnerConvite
+    }
+    if(this.createWeddingForm.controls['transportConvite'].value != "")  
+    {
+      invitationEdit.transportConvite = this.createWeddingForm.value.transportConvite
+    } else
+    {
+      invitationEdit.transportConvite = this.invitation.transportConvite
+    }
+    if(this.createWeddingForm.controls['boyPhone'].value != "")  
+    {
+      invitationEdit.boyPhone = this.createWeddingForm.value.boyPhone
+    } else
+    {
+      invitationEdit.boyPhone = this.invitation.boyPhone
+    }
+    if(this.createWeddingForm.controls['girlPhone'].value != "")  
+    {
+      invitationEdit.girlPhone = this.createWeddingForm.value.girlPhone
+    } else
+    {
+      invitationEdit.girlPhone = this.invitation.girlPhone
+    }
+    if(this.createWeddingForm.controls['cityIdProvince'].value != "")
+    {
+      invitationEdit.cityIdProvince = idCity?.idProvince
+    }else{
+      invitationEdit.cityIdProvince = this.invitation.cityIdProvince;
+    }
+    if(this.createWeddingForm.controls['hourTransportConvite'].value != "")
+    {
+      invitationEdit.hourTransportConvite = this.createWeddingForm.value.hourTransportConvite
+    }else{
+      invitationEdit.hourTransportConvite = this.invitation.hourTransportConvite;
+    }   
 
     this.loading = true;
-    this._invitationService.editWedding(this.createWeddingForm.value,this.idWedding)
+    this._invitationService.editWedding(invitationEdit, this.idWedding)
       .pipe(first())
       .subscribe({
         next: () => {
-          this._alertService.success('Update wedding successful', { keepAfterRouteChange: true });
+          //this._alertService.success('Update wedding successful', { keepAfterRouteChange: true });
           this.router.navigate(['../home']);
         },
         error: error => {
@@ -119,6 +214,6 @@ export class EditWeddingComponent implements OnInit {
       });
 
   }
-  
+
 
 }

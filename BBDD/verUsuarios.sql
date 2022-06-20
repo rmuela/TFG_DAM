@@ -1,0 +1,6 @@
+SELECT TOP (1000) [Id]
+      ,[FirstName]
+      ,[LastName]
+      ,[Username]
+      ,[PasswordHash]
+  FROM [Wedding].[dbo].[Users]

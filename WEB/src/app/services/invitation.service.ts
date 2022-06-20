@@ -49,6 +49,9 @@ export class InvitationService {
     verifyUserCanEditInvitation(searchUserToEdit: SearchUserToEdit){
         return this.http.post(`${environment.apiUrl}/invitation/editWedding`, searchUserToEdit);
     }
+    AllWeddingByUser(searchUserToEdit: SearchUserToEdit):Observable<Invitation[]>{
+        return this.http.post<Invitation[]>(`${environment.apiUrl}/invitation/user`, searchUserToEdit);
+    }
 
     
     

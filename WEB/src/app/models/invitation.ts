@@ -4,7 +4,7 @@ export class Invitation {
     weddingDate!: Date;
     placeConvite!: string ;
     adressConvite!: string ;
-    cityIdProvince!: number ;
+    cityIdProvince?: number ;
     usuarioId!: number ;
     hourDinnerConvite!: string ;
     transportConvite!: string ;
